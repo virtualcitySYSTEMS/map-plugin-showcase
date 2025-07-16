@@ -18,7 +18,11 @@ export async function placeTree(event, vcsUiApp, select = true) {
   if (category) {
     const tree = new Feature({
       geometry: new Point(event.position),
-      olcs_modelUrl: getPluginAssetUrl(vcsUiApp, name, 'plugin-assets/tree.glb'),
+      olcs_modelUrl: getPluginAssetUrl(
+        vcsUiApp,
+        name,
+        'plugin-assets/tree.glb',
+      ),
       olcs_modelScaleX: 10 / 37,
       olcs_modelScaleY: 10 / 37,
       olcs_modelScaleZ: 10 / 37,
@@ -32,8 +36,10 @@ export async function placeTree(event, vcsUiApp, select = true) {
     }
     if (select) {
       setTimeout(async () => {
-        await vcsUiApp.featureInfo
-          .selectFeature(tree, event.position, [event.windowPosition.x, event.windowPosition.y]);
+        await vcsUiApp.featureInfo.selectFeature(tree, event.position, [
+          event.windowPosition.x,
+          event.windowPosition.y,
+        ]);
       }, 0);
     }
   }
@@ -52,4 +58,3 @@ export function downloadGeoJSON(objectString) {
   link.click();
   document.body.removeChild(link);
 }
-

@@ -1,7 +1,9 @@
 # @vcmap Plugin Showcase
+
 This is a small showcase to illustrate how easy it is to create and use a plugin.
 
 ## Concepts shown:
+
 - How to add an interaction.
 - How to add a tool to the toolbar.
 - How to create a custom category.
@@ -11,6 +13,7 @@ This is a small showcase to illustrate how easy it is to create and use a plugin
 - How to use i18n capabilities.
 
 ## Getting started
+
 ```bash
 git clone https://github.com/virtualcitysystems/map-plugin-showcase
 cd map-plugin-showcase

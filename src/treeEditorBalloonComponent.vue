@@ -1,8 +1,8 @@
 <template>
   <div>
-    <BalloonComponent :feature-id="featureId" v-bind="{...$attrs}">
+    <BalloonComponent :feature-id="featureId" v-bind="{ ...$attrs }">
       <v-card class="px-2 pb-4">
-        {{ $t('treePlanterPlugin.balloonTitle')}}
+        {{ $t('treePlanterPlugin.balloonTitle') }}
         <div class="mt-12">
           <v-slider
             v-model="height"
@@ -13,7 +13,7 @@
           />
         </div>
         <VcsButton icon="mdi-delete" @click="removeTree">
-          {{ $t('treePlanterPlugin.delete')}}
+          {{ $t('treePlanterPlugin.delete') }}
         </VcsButton>
       </v-card>
     </BalloonComponent>
@@ -22,12 +22,13 @@
 
 <script>
   import { computed, inject, ref } from 'vue';
+  import { VSlider, VCard } from 'vuetify/components';
   import { BalloonComponent, VcsButton } from '@vcmap/ui';
   import { layerName } from './api.js';
 
   export default {
-    name: 'treeEditorBalloonComponent',
-    components: { BalloonComponent, VcsButton },
+    name: 'TreeEditorBalloonComponent',
+    components: { BalloonComponent, VcsButton, VSlider, VCard },
     props: {
       featureId: {
         type: String,
@@ -40,14 +41,19 @@
       const layer = vcsApp.layers.getByKey(layerName);
       const feature = layer.getFeatureById(props.featureId);
 
-      height.value = feature.get('olcs_modelScaleX') != null ? feature.get('olcs_modelScaleX') * 37 : 1;
+      height.value =
+        feature.get('olcs_modelScaleX') != null
+          ? feature.get('olcs_modelScaleX') * 37
+          : 1;
       return {
         removeTree() {
           layer.removeFeaturesById([feature.getId()]);
           vcsApp.featureInfo.clear();
         },
         height: computed({
-          get() { return height.value; },
+          get() {
+            return height.value;
+          },
           set(value) {
             if (value > 0) {
               height.value = value;
@@ -62,6 +68,4 @@
   };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

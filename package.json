@@ -2,6 +2,7 @@
   "name": "@vcmap/plugin-showcase",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "prepublishOnly": "vcmplugin build",
@@ -10,7 +11,10 @@
     "start": "vcmplugin serve",
     "preview": "vcmplugin preview",
     "buildStagingApp": "vcmplugin buildStagingApp",
-    "lint": "eslint \"{src,tests}/**/*.{js,vue}\""
+    "lint:js": "eslint . --ext .vue,.js,.cjs,.mjs,.ts,.cts,.mts",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm run lint:js && npm run lint:prettier",
+    "format": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "author": "Ben Kuster <bkuster@vc.systems>",
   "license": "MIT",
@@ -30,23 +34,27 @@
     "./dist": "./dist/index.js"
   },
   "eslintIgnore": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "coverage",
+    "*timestamp-*.mjs"
   ],
-  "eslintConfig": {
-    "root": true,
-    "extends": "@vcsuite/eslint-config/vue"
-  },
+  "prettier": "@vcsuite/eslint-config/prettier.js",
   "peerDependencies": {
-    "@vcmap/core": "^5.0.0-rc.22",
-    "@vcmap/ui": "^5.0.0-rc.14",
-    "ol": "~7.1.0",
-    "vue": "~2.7.3"
+    "@vcmap/core": "^6.1.9",
+    "@vcmap/ui": "^6.1.12",
+    "ol": "^10.5.0",
+    "vue": "~3.4.38"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0"
   },
   "devDependencies": {
-    "@vcmap/plugin-cli": "^2.0.10",
-    "@vcsuite/eslint-config": "^2.1.1"
+    "@vcmap/plugin-cli": "^4.1.1",
+    "@vcsuite/eslint-config": "^4.0.0"
   },
   "dependencies": {
     "uuid": "^8.3.2"
-  }
+  },
+  "mapVersion": "^6.1"
 }

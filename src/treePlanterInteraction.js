@@ -1,4 +1,9 @@
-import { AbstractInteraction, EventType, ModificationKeyType, Layer } from '@vcmap/core';
+import {
+  AbstractInteraction,
+  EventType,
+  ModificationKeyType,
+  vcsLayerName,
+} from '@vcmap/core';
 import { categoryName, layerName, placeTree } from './api.js';
 
 /**
@@ -10,7 +15,10 @@ class TreePlanterInteraction extends AbstractInteraction {
    * @param {import("@vcmap/ui").VcsUiApp} vcsUiApp
    */
   constructor(vcsUiApp) {
-    super(EventType.CLICK, ModificationKeyType.NONE | ModificationKeyType.SHIFT);
+    super(
+      EventType.CLICK,
+      ModificationKeyType.NONE | ModificationKeyType.SHIFT,
+    );
     /**
      * @type {import("@vcmap/core").VectorLayer}
      * @private
@@ -26,10 +34,7 @@ class TreePlanterInteraction extends AbstractInteraction {
 
   async pipe(event) {
     if (event.key & ModificationKeyType.SHIFT) {
-      if (
-        event.feature &&
-        event.feature[Layer.vcsLayerNameSymbol] === this._layer.name
-      ) {
+      if (event.feature && event.feature[vcsLayerName] === this._layer.name) {
         const { collection } = this._app.categories.getByKey(categoryName);
         const item = collection.getByKey(event.feature.getId());
         collection.remove(item);
